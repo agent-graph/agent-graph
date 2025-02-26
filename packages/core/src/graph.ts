@@ -3,7 +3,7 @@ import { GraphRuntime } from './runtime';
 import { CompiledGraph } from './compiled-graph';
 import { Checkpointer } from './checkpoint';
 
-export class Graph<C, V extends VertexId = never> {
+export class Graph<C = never, V extends VertexId = never> {
   readonly vertices = new Map<V, Vertex<V, C>>();
   readonly edges = new Map<
     V,
@@ -33,7 +33,7 @@ export class Graph<C, V extends VertexId = never> {
     return this;
   }
 
-  compile({ context, checkpointer }: { context: C; checkpointer?: Checkpointer<V> }) {
+  build({ context, checkpointer }: { context: C; checkpointer?: Checkpointer<V> }) {
     return new CompiledGraph<C, V>({ builder: this, context, checkpointer });
   }
 }
