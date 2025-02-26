@@ -1,11 +1,12 @@
-import js from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReact from "eslint-plugin-react";
-import globals from "globals";
-import pluginNext from "@next/eslint-plugin-next";
-import { config as baseConfig } from "./base.js";
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginReact from 'eslint-plugin-react';
+import pluginImport from 'eslint-plugin-import';
+import globals from 'globals';
+import pluginNext from '@next/eslint-plugin-next';
+import { config as baseConfig } from './base.js';
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -18,6 +19,32 @@ export const nextJsConfig = [
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
   {
+    ...pluginImport.flatConfigs.recommended,
+    plugins: { import: pluginImport },
+    settings: { 'import/resolver': { typescript: true, node: true } },
+    rules: {
+      ...pluginImport.flatConfigs.recommended.rules,
+      'import/newline-after-import': ['error', { count: 1 }],
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+          'newlines-between': 'never',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
+    },
+  },
+  {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
       ...pluginReact.configs.flat.recommended.languageOptions,
@@ -28,22 +55,22 @@ export const nextJsConfig = [
   },
   {
     plugins: {
-      "@next/next": pluginNext,
+      '@next/next': pluginNext,
     },
     rules: {
       ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs["core-web-vitals"].rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
     },
   },
   {
     plugins: {
-      "react-hooks": pluginReactHooks,
+      'react-hooks': pluginReactHooks,
     },
-    settings: { react: { version: "detect" } },
+    settings: { react: { version: 'detect' } },
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
-      "react/react-in-jsx-scope": "off",
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ];
