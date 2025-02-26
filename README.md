@@ -53,7 +53,7 @@ const builder = new Graph<Context>()
 const graph = builder.build({ context: { userId: '123' } });
 
 // Start the graph from the writer vertex
-graph.run([{ next: 'writer', props: { name: 'Alice' } }], {});
+graph.run([{ next: 'writer', props: { name: 'Alice' } }]);
 ```
 
 ### Conditional Edge
