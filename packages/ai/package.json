@@ -1,0 +1,39 @@
+{
+  "name": "@agent-graph/ai",
+  "version": "0.0.1",
+  "description": "A lightweight AI Agent orchestration solution",
+  "keywords": [
+    "ai",
+    "agent",
+    "orchestration",
+    "graph"
+  ],
+  "license": "MIT",
+  "author": "hdsuperman",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agent-graph/agent-graph.git"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "publish": "npm publish --access public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "ai": "^4.1.46",
+    "zod": "^3.24.2"
+  }
+}
