@@ -106,7 +106,7 @@ export class BuiltGraph<C, V extends VertexId = never> {
     return (await Promise.all(promises)).flat();
   }
 
-  async run(initialSteps: Steps<V>, initialStates: States<V>) {
+  async run(initialSteps: Steps<V>, initialStates: States<V> = {}) {
     this.running = true;
     let steps = initialSteps;
     this.setVertexStates(initialStates);
