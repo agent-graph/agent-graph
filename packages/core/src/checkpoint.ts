@@ -17,6 +17,14 @@ export type InferStatesType<
   [key in V]?: Readonly<unknown>;
 };
 
+export type InferStepType<
+  G extends Graph<any, any>,
+  V extends VertexId = G extends Graph<any, infer V> ? V : never,
+> = {
+  next: V;
+  props: Readonly<unknown>;
+};
+
 export type InferStepsType<
   G extends Graph<any, any>,
   V extends VertexId = G extends Graph<any, infer V> ? V : never,
