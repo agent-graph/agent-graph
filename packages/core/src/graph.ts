@@ -1,6 +1,6 @@
 import { Vertex, VertexId } from './vertex';
 import { GraphRuntime } from './runtime';
-import { CompiledGraph } from './compiled-graph';
+import { BuiltGraph } from './built-graph';
 import { Checkpointer } from './checkpoint';
 
 export class Graph<C = never, V extends VertexId = never> {
@@ -34,6 +34,6 @@ export class Graph<C = never, V extends VertexId = never> {
   }
 
   build({ context, checkpointer }: { context: C; checkpointer?: Checkpointer<V> }) {
-    return new CompiledGraph<C, V>({ builder: this, context, checkpointer });
+    return new BuiltGraph<C, V>({ builder: this, context, checkpointer });
   }
 }

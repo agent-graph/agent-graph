@@ -6,7 +6,7 @@ import { ExitStatus, GraphRuntime, Interrupt } from './runtime';
 /**
  * Lifecycle: run(init) -> superstep() -> interrupt() -> superstep() -> exit() -> ... -> shutdown()
  * */
-export class CompiledGraph<C, V extends VertexId = never> {
+export class BuiltGraph<C, V extends VertexId = never> {
   running = false;
   readonly context: C;
   readonly version = 1;
