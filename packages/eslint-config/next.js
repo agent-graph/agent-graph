@@ -19,6 +19,10 @@ export const nextJsConfig = [
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
   {
+    plugins: { '@typescript-eslint': tseslint.plugin },
+    rules: { '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }] },
+  },
+  {
     ...pluginImport.flatConfigs.recommended,
     plugins: { import: pluginImport },
     settings: { 'import/resolver': { typescript: true, node: true } },
