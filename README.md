@@ -98,6 +98,30 @@ const graph = builder.build({ context: { userId: '123' } });
 graph.run([{ next: 'writer', props: { name: 'Alice' } }], {});
 ```
 
+### Defining edges separately
+
+```typescript
+import { Edge } from '@agent-graph/core';
+
+type Source = typeof reviewer;
+type Target = 'publisher';
+
+const edge: Edge<Source, Target> = (props) => {
+  if (props.status === 'approved') {
+    return [publisher];
+  } else {
+    return [];
+  }
+};
+
+const builder = new Graph<Context>()
+  .addV(writer)
+  .addV(printer)
+  .addV(reviewer)
+  .addE(writer, () => [printer, reviewer])
+  .addE(reviewer, edge);
+```
+
 ## Agent Graph vs Langgraph
 
 Agent Graph was inspired by langgraph, but there are some differences:

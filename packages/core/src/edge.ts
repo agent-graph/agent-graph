@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vertex, VertexId } from './vertex';
 import { GraphRuntime } from './runtime';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type Edge<
   S extends Vertex<any, any, any, any, any> = Vertex<any, any, any, any, any>,
   T extends VertexId = any,
