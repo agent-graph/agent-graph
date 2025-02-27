@@ -14,6 +14,7 @@ export class BuiltGraph<C, V extends VertexId = never> {
   readonly checkpointer?: Checkpointer<V>;
   readonly interruptVectorTable: Interrupt[] = [];
   readonly shutdownHooks: (() => void | Promise<void>)[] = [];
+  readonly computedListeners: ((vertexId: V, props: Readonly<unknown>) => void)[] = [];
 
   constructor({
     builder,
@@ -65,6 +66,10 @@ export class BuiltGraph<C, V extends VertexId = never> {
     };
   }
 
+  onComputed(listener: (vertexId: V, props: Readonly<unknown>) => void) {
+    this.computedListeners.push(listener);
+  }
+
   private activeAllVertices() {
     for (const vertex of this.builder.vertices.values()) {
       vertex.active();
@@ -93,6 +98,7 @@ export class BuiltGraph<C, V extends VertexId = never> {
 
     const getOutEdges = this.builder.edges.get(vertex.id as V);
     const props = await vertex.compute(inputProps, this.runtime);
+    this.computedListeners.forEach((listener) => listener(vertexId, props));
     const edges = getOutEdges ? (await getOutEdges(props, this.runtime)).map((v) => v.id) : [];
     const steps: Steps<V> = edges.map((next) => ({ next, props }));
     if (vertex.isWaiting) {
