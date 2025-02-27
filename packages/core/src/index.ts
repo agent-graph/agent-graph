@@ -10,3 +10,4 @@ export {
   InferStepType,
   InferStepsType,
 } from './checkpoint';
+export { InferPlaceholders, StringTemplate } from './template';
