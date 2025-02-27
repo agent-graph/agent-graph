@@ -1,7 +1,7 @@
 export { Vertex, VertexId } from './vertex';
 export { Edge } from './edge';
 export { Graph } from './graph';
-export { GraphRuntime } from './runtime';
+export { GraphRuntime, createGraphRuntime, mockGraphRuntime } from './runtime';
 export { BuiltGraph } from './built-graph';
 export {
   Steps,

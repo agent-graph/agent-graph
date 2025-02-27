@@ -18,3 +18,21 @@ export type GraphRuntime<C> = {
   interrupt: (interrupt: Interrupt) => void;
   addShutdownHook: (hook: () => void | Promise<void>) => void;
 };
+
+export const mockGraphRuntime: GraphRuntime<unknown> = {
+  context: {},
+  version: 0,
+  exit: () => {},
+  interrupt: () => {},
+  addShutdownHook: () => {},
+};
+
+export function createGraphRuntime<C>(context: C): GraphRuntime<C> {
+  return {
+    context,
+    version: 0,
+    exit: () => {},
+    interrupt: () => {},
+    addShutdownHook: () => {},
+  };
+}
