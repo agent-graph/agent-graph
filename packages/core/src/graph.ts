@@ -7,7 +7,11 @@ export class Graph<C = never, V extends VertexId = never> {
   readonly vertices = new Map<V, Vertex<V, C>>();
   readonly edges = new Map<
     V,
-    (i: unknown, runtime: GraphRuntime<C>) => Vertex<V, C>[] | Promise<Vertex<V, C>[]>
+    (
+      props: unknown,
+      state: unknown,
+      runtime: GraphRuntime<C>
+    ) => Vertex<V, C>[] | Promise<Vertex<V, C>[]>
   >();
 
   addV<K extends VertexId, S, I, O>(vertex: Vertex<K, C, S, I, O>): Graph<C, V | K> {

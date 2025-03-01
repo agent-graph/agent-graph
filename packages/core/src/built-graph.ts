@@ -99,11 +99,13 @@ export class BuiltGraph<C, V extends VertexId = never> {
     const getOutEdges = this.builder.edges.get(vertex.id as V);
     const props = await vertex.compute(inputProps, this.runtime);
     this.computedListeners.forEach((listener) => listener(vertexId, props));
-    const edges = getOutEdges ? (await getOutEdges(props, this.runtime)).map((v) => v.id) : [];
-    const steps: Steps<V> = edges.map((next) => ({ next, props }));
+    const edges = getOutEdges
+      ? (await getOutEdges(props, vertex.state, this.runtime)).map((v) => v.id)
+      : [];
     if (vertex.isWaiting) {
-      steps.push({ next: vertexId, props: inputProps });
+      return [{ next: vertexId, props: inputProps }];
     }
+    const steps: Steps<V> = edges.map((next) => ({ next, props }));
     return steps;
   }
 
